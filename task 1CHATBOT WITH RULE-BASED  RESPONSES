@@ -1,0 +1,54 @@
+import re
+from datetime import datetime
+
+def get_response(user_input):
+    text = user_input.lower().strip()
+
+    # Greetings
+    if re.search(r'\b(hi|hello|hey|good morning|good afternoon|good evening)\b', text):
+        return "Hello there! How can I help you today?"
+
+    # Asking how the bot is
+    if "how are you" in text:
+        return "I'm just a simple bot, but I'm doing great—thanks for asking!"
+
+    # Asking bot's name
+    if re.search(r'\b(your name|who are you)\b', text):
+        return "I'm RuleBot, your friendly rule‐based chatbot."
+
+    # Asking for the time
+    if "time" in text:
+        now = datetime.now().strftime("%H:%M:%S")
+        return f"The current time is {now}."
+
+    # Asking for the date
+    if "date" in text:
+        today = datetime.now().strftime("%Y-%m-%d")
+        return f"Today's date is {today}."
+
+    # Telling a joke
+    if "joke" in text:
+        return "Why did the scarecrow win an award? Because he was outstanding in his field!"
+
+    # Thanks
+    if re.search(r'\b(thanks|thank you)\b', text):
+        return "You're welcome! Anything else I can do for you?"
+
+    # Farewell / exit
+    if re.search(r'\b(bye|goodbye|see you|exit|quit)\b', text):
+        return "Goodbye! Have a great day."
+
+    # Fallback
+    return "Sorry, I don't understand that. Can you rephrase?"
+
+def chat():
+    print("RuleBot: Hi! I'm RuleBot. Type 'bye' or 'exit' to end the chat.")
+    while True:
+        user_input = input("You: ")
+        response = get_response(user_input)
+        print("RuleBot:", response)
+        if re.search(r'\b(bye|goodbye|exit|quit)\b', user_input.lower()):
+            break
+
+if __name__ == "__main__":
+    chat()
